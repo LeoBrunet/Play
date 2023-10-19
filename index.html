@@ -15,15 +15,28 @@
       margin: 0;
       color: white;
       font-family: Georgia, serif;
-      /* Set font to Georgia */
-      font-size: 3rem;
-      /* Set font size to 36 pixels */
+      font-size: 2rem;
+      /* Default font size */
+      text-align: center;
+      /* Center text horizontally */
+    }
+
+    @media (min-width: 768px) {
+      body {
+        font-size: 36px;
+        /* Set font size to 36 pixels for larger screens */
+      }
     }
   </style>
 </head>
 
 <body>
   <div id="clickMessage">Just click Marie, you can trust me it's Léo :)</div>
+
+  <script>
+    var audio = new Audio("anniversaire.mp3");
+    audio.play();
+  </script>
 
   <script>
     // Function to play audio
