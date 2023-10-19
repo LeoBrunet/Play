@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Click to Play</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    body {
+    /*body {
       background-color: black;
       display: flex;
       align-items: center;
@@ -16,40 +17,126 @@
       color: white;
       font-family: Georgia, serif;
       font-size: 2rem;
-      /* Default font size */
       text-align: center;
-      /* Center text horizontally */
     }
 
     @media (min-width: 768px) {
       body {
         font-size: 36px;
-        /* Set font size to 36 pixels for larger screens */
       }
-    }
+    }*/
   </style>
 </head>
 
 <body>
   <div id="clickMessage">Just click Marie, you can trust me it's Léo :)</div>
+  <div id="fredStory">Für die Tage ohne Sonne in Osna</div>
+  <div id="lastChristmas">A little song to make you happy ! 🎁</div>
+  <div id="felicita">Wenn du Fernweh nach Italien hast</div>
+  <div id="party">Bock auf Party?</div>
+  <div id="potter">18+</div>
+  <div id="birthday">Happy Birthday🎉</div>
+  <video id="partyVideo" width="640" height="360" controls style="display: none;">
+    <source src="party.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <video id="potterVideo" width="640" height="360" controls style="display: none;">
+    <source src="potter.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <video id="birthdayVideo" width="200" height="360" controls style="display: none;">
+    <source src="birthday.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div id="stop" style="display: none;">Pleeeaaaase stooooop !!! (It only works 1/4 of the time hehehe 🙃)</div>
 
   <script>
-    var audio = new Audio("anniversaire.mp3");
-    audio.play();
-  </script>
+    // VIDEO
+    var currentlyPlayingVideo = null;
 
-  <script>
-    // Function to play audio
-    function playAudio() {
-      var audio = new Audio("anniversaire.mp3");
-      audio.play();
+    function playVideo(text, video) {
+      stopEverything();
+      video.style.display = "block";
+      video.play();
+      currentlyPlayingVideo = video
+      document.getElementById("stop").style.display = "block";
     }
 
-    // Play audio when the page loads
-    playAudio();
+    function stopVideo() {
+      if (currentlyPlayingVideo) {
+        currentlyPlayingVideo.pause();
+        currentlyPlayingVideo.currentTime = 0;
+        currentlyPlayingVideo.style.display = "none"
+        document.getElementById("stop").style.display = "none";
+      }
+    }
 
-    // Play audio when the body is clicked
-    document.body.addEventListener("click", playAudio);
+    // AUDIO
+    var currentlyPlayingAudio = null;
+
+    // Function to play audio
+    function playAudio(file) {
+      stopEverything();
+      var audio = new Audio(file);
+      audio.play();
+      currentlyPlayingAudio = audio;
+      document.getElementById("stop").style.display = "block";
+      console.log("called with " + file);
+    }
+
+    function stopAudio() {
+      console.log("finally");
+      if (currentlyPlayingAudio) {
+        currentlyPlayingAudio.pause();
+        currentlyPlayingAudio.currentTime = 0;
+        document.getElementById("stop").style.display = "none";
+      }
+    }
+
+    function stopEverything() {
+      stopAudio()
+      stopVideo()
+    }
+
+
+    // Play audio when the page loads
+    // playAudio("anniversaire.mp3");
+
+    // Play audios
+    document.getElementById("clickMessage").addEventListener("click", function () {
+      playAudio("anniversaire.mp3");
+    });
+    document.getElementById("fredStory").addEventListener("click", function () {
+      playAudio("fred.mp3");
+    });
+    document.getElementById("lastChristmas").addEventListener("click", function () {
+      playAudio("last_christmas.mp3");
+    });
+    document.getElementById("felicita").addEventListener("click", function () {
+      playAudio("felicita.mp3");
+    });
+    document.getElementById("stop").addEventListener("click", function () {
+      if (Math.random() < 0.25) {
+        stopEverything();
+      }
+    });
+
+    // Play videos
+    party.addEventListener("click", function () {
+      var textDiv = document.getElementById("party");
+      var video = document.getElementById("partyVideo");
+      playVideo(textDiv, video)
+    });
+    potter.addEventListener("click", function () {
+      var textDiv = document.getElementById("potter");
+      var video = document.getElementById("potterVideo");
+      playVideo(textDiv, video)
+    });
+    birthday.addEventListener("click", function () {
+      var textDiv = document.getElementById("birthday");
+      var video = document.getElementById("birthdayVideo");
+      playVideo(textDiv, video)
+    });
   </script>
 </body>
 
