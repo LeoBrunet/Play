@@ -57,7 +57,5 @@ document.getElementById("felicita").addEventListener("click", function () {
 });
 
 document.getElementById("stop").addEventListener("click", function () {
-    if (Math.random() < 0.25) {
-        stopMedia();
-    }
+    stopMedia();
 });
